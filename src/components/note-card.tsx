@@ -5,12 +5,15 @@ import { X } from "lucide-react";
 
 interface NoteCardProps {
   note: {
+    id: string;
     date: Date;
     content: string;
   };
+
+  onNoteDeleted: (id: string) => void;
 }
 
-export function NoteCard({ note }: NoteCardProps) {
+export function NoteCard({ onNoteDeleted, note }: NoteCardProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger className="bg-slate-800 text-left rounded-md p-5 flex flex-col gap-3 overflow-hidden outline-none relative hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400">
@@ -28,7 +31,7 @@ export function NoteCard({ note }: NoteCardProps) {
       <Dialog.Portal>
         <Dialog.Overlay className="inset-0 fixed bg-black/50" />
 
-        <Dialog.Content className="fixed z-10  left-1/2 top-1/2 overflow-hidden -translate-x-1/2 -translate-y-1/2 max-w-[640px] w-full h-[60vh] rounded-md bg-slate-700 flex flex-col outline-none">
+        <Dialog.Content className="fixed z-10 inset-0 md:inset-auto  md:left-1/2 md:top-1/2 overflow-hidden md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] md:rounded-md bg-slate-700 flex flex-col outline-none">
           <Dialog.Close className="absolute right-0 top-0 text-slate-400 bg-slate-800 p-1.5 hover:text-slate-100">
             <X className="size-5" />
           </Dialog.Close>
@@ -45,6 +48,7 @@ export function NoteCard({ note }: NoteCardProps) {
           <button
             type="button"
             className=" w-full text-slate-300 text-center text-sm outline-none bg-slate-800 p-4 font-medium group"
+            onClick={() => onNoteDeleted(note.id)}
           >
             Deseja{" "}
             <span className="text-red-400 group-hover:underline ">
